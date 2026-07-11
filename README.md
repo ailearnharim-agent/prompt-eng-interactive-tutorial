@@ -16,7 +16,7 @@ This course is structured to allow you many chances to practice writing and trou
 
 **Each lesson has an "Example Playground" area** at the bottom where you are free to experiment with the examples in the lesson and see for yourself how changing prompts can change Claude's responses. There is also an [answer key](https://docs.google.com/spreadsheets/d/1jIxjzUWG-6xBVIa2ay6yDpLyeuOh_hR_ZB75a47KX_E/edit?usp=sharing).
 
-Note: This tutorial uses our smallest, fastest, and cheapest model, Claude 3 Haiku. Anthropic has [two other models](https://docs.anthropic.com/claude/docs/models-overview), Claude 3 Sonnet and Claude 3 Opus, which are more intelligent than Haiku, with Opus being the most intelligent.
+Note: This tutorial uses our smallest, fastest, and cheapest model, Claude Haiku 4.5. Anthropic has [two other current models](https://docs.anthropic.com/claude/docs/models-overview), Claude Sonnet 5 and Claude Opus 4.8, which are more intelligent than Haiku, with Opus being the most intelligent. All three share the same API and the same prompt engineering techniques — everything in this course transfers directly regardless of which model you point it at.
 
 *This tutorial also exists on [Google Sheets using Anthropic's Claude for Sheets extension](https://docs.google.com/spreadsheets/d/19jzLgRruG9kjUQNKtCg1ZjdD6l6weA6qRXG5zLIAhC8/edit?usp=sharing). We recommend using that version as it is more user friendly.*
 
@@ -53,6 +53,12 @@ Each chapter consists of a lesson and a set of exercises.
   - Congratulations & Next Steps
 
 - **Appendix:** Beyond Standard Prompting
-  - Chaining Prompts
-  - Tool Use
-  - Search & Retrieval
+  - 10.1 Chaining Prompts
+  - 10.2 Tool Use
+  - 10.3 Search & Retrieval
+  - 10.4 Prompt Caching
+  - 10.5 Extended Thinking
+  - 10.6 Structured Outputs
+  - 10.7 Citations
+  - 10.8 Computer Use & Agents
+  - 10.9 Model Context Protocol (MCP) Basics

@@ -172,75 +172,81 @@ Find the relevant issues and write the Socratic tutor-style response. Do not giv
 Put each issue in <issue> tags and put your final response in <response> tags.
 """
 
-exercise_10_2_1_solution = """system_prompt = system_prompt_tools_general_explanation + \"""Here are the functions available in JSONSchema format:
-
-<tools>
-
-<tool_description>
-<tool_name>get_user</tool_name>
-<description>
-Retrieves a user from the database by their user ID.
-</description>
-<parameters>
-<parameter>
-<name>user_id</name>
-<type>int</type>
-<description>The ID of the user to retrieve.</description>
-</parameter>
-</parameters>
-</tool_description>
-
-<tool_description>
-<tool_name>get_product</tool_name>
-<description>
-Retrieves a product from the database by its product ID.
-</description>
-<parameters>
-<parameter>
-<name>product_id</name>
-<type>int</type>
-<description>The ID of the product to retrieve.</description>
-</parameter>
-</parameters>
-</tool_description>
-
-<tool_description>
-<tool_name>add_user</tool_name>
-<description>
-Adds a new user to the database.
-</description>
-<parameters>
-<parameter>
-<name>name</name>
-<type>str</type>
-<description>The name of the user.</description>
-</parameter>
-<parameter>
-<name>email</name>
-<type>str</type>
-<description>The email address of the user.</description>
-</parameter>
-</parameters>
-</tool_description>
-
-<tool_description>
-<tool_name>add_product</tool_name>
-<description>
-Adds a new product to the database.
-</description>
-<parameters>
-<parameter>
-<name>name</name>
-<type>str</type>
-<description>The name of the product.</description>
-</parameter>
-<parameter>
-<name>price</name>
-<type>float</type>
-<description>The price of the product.</description>
-</parameter>
-</parameters>
-</tool_description>
-
-</tools>
+exercise_10_2_1_solution = """tools = [
+    {
+        "name": "get_user",
+        "description": "Retrieves a user from the database by their user ID.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "user_id": {"type": "integer", "description": "The ID of the user to retrieve."}
+            },
+            "required": ["user_id"]
+        }
+    },
+    {
+        "name": "get_product",
+        "description": "Retrieves a product from the database by its product ID.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "product_id": {"type": "integer", "description": "The ID of the product to retrieve."}
+            },
+            "required": ["product_id"]
+        }
+    },
+    {
+        "name": "add_user",
+        "description": "Adds a new user to the database.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string", "description": "The name of the user."},
+                "email": {"type": "string", "description": "The email address of the user."}
+            },
+            "required": ["name", "email"]
+        }
+    },
+    {
+        "name": "add_product",
+        "description": "Adds a new product to the database.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string", "description": "The name of the product."},
+                "price": {"type": "number", "description": "The price of the product."}
+            },
+            "required": ["name", "price"]
+        }
+    }
+]
 """
+exercise_10_4_1_hint = """The `system` parameter can be either a plain string or a list of content blocks. To cache STYLE_GUIDE,
+make `system` a list with one text block whose "text" is STYLE_GUIDE and which has a "cache_control": {"type": "ephemeral"} key.
+Don't put the per-request file_under_review content in that same cached block -- only the static, reused part should be cached."""
+
+exercise_10_5_1_hint = """Call `client.messages.create` directly (or reuse the `think` helper's pattern) with
+`thinking={"type": "enabled", "budget_tokens": budget_tokens}` and `max_tokens` greater than `budget_tokens`.
+The response.content will contain a "thinking" block and a "text" block -- loop over response.content, find the
+block where block.type == "text", and return its .text attribute. Don't return anything from the thinking block."""
+
+exercise_10_6_1_hint = """Give review_schema four properties: product_name (type "string"), rating (type "integer", with
+minimum 1 and maximum 5), sentiment (type "string" with an enum of ["positive", "neutral", "negative"]), and
+key_phrases (type "array" of "string" items). Put all four names in "required". Remember the tool's top-level
+"name" and "description" fields still need real values too -- the description is what Claude reasons over to
+decide how to fill in the schema well."""
+
+exercise_10_7_1_hint = """Ask a single question that genuinely needs information from both documents to answer fully --
+for example, asking Claude to compare the warranty lengths of Product A and Product B, or to explain the
+difference between their coverage. If your question only needs one document, Claude will only cite one, and the
+grading check (which wants citations from both) will fail."""
+
+exercise_10_8_1_hint = """Check `action["type"]` against the set {"submit", "purchase", "delete", "send"} first --
+if it matches, return True immediately. Otherwise, if `action["type"] == "type"`, check whether the word
+"password" appears (case-insensitively) in `action.get("field", "")` or `action.get("target", "")`, and return
+True if so. Otherwise return False. Use `.get()` rather than direct indexing since not every action dict has
+every key."""
+
+exercise_10_9_1_hint = """Loop over `mcp_response["tools"]`. For each tool dict, build a new dict with "name" and
+"description" copied over unchanged, and "input_schema" set to that tool's "inputSchema" value (just renaming the
+key -- the JSON Schema content underneath doesn't need to change). Collect these into a list and return it."""
